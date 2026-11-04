@@ -264,9 +264,24 @@ async def start_game(event):
         set_game_busy(False, "Não foi possível iniciar a partida. Tente novamente.")
 
 
-@when("click", ".answer-button")
-async def answer_question(event):
-    await submit_answer(event.currentTarget.dataset.answer)
+@when("click", "#answerA")
+async def answer_a(event):
+    await submit_answer("A")
+
+
+@when("click", "#answerB")
+async def answer_b(event):
+    await submit_answer("B")
+
+
+@when("click", "#answerC")
+async def answer_c(event):
+    await submit_answer("C")
+
+
+@when("click", "#answerD")
+async def answer_d(event):
+    await submit_answer("D")
 
 
 @when("click", "#quitGameButton")
