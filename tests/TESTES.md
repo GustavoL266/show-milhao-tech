@@ -21,7 +21,7 @@ Preencha a coluna **Resultado observado** e inclua os nomes dos arquivos de capt
 | 15 | Permissões públicas | Site não lê `perguntas` e não insere/altera `partidas` | API pública retornou 401 para `perguntas`; ranking retornou 10 linhas | Aprovado |
 | 16 | Iniciar pelo site | Exibir a primeira questão sem revelar o campo `correta` | Chamada como `anon` retornou 9 alternativas ordenadas e `expos_gabarito = false` | Aprovado |
 | 17 | Responder pelo site | Função do banco valida a alternativa e avança ou encerra | Resposta correta avançou da pergunta 1 para a 2 e fixou o prêmio em R$ 1.000,00 | Aprovado |
-| 18 | Finalizar pelo site | Resultado é salvo e o ranking atualiza na mesma página | Pendente de nova validação online | Pendente |
+| 18 | Finalizar pelo site | Resultado é salvo e o ranking atualiza na mesma página | Fluxo publicado exibiu `resultado salvo` e recarregou o Top 10 automaticamente | Aprovado |
 | 19 | Alterar prêmio pelo navegador | Não há parâmetro público para enviar prêmio, tempo ou acertos | Conferido na assinatura das funções SQL | Aprovado |
 
 ## Evidências obrigatórias
