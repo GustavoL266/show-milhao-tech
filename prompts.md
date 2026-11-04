@@ -23,3 +23,18 @@ Durante a revisão de segurança, foi identificado que usar a mesma permissão p
 
 Essa solução atende ao protótipo acadêmico, mas tem uma limitação: a chave secreta fica no computador que executa o jogo. Para uso público, a melhoria recomendada é mover a validação das respostas e o registro de partidas para uma API ou Edge Function protegida.
 
+## 2. Publicação do site
+
+- Data: 04/11/2026
+- Integrante responsável: **preencher**
+- Ferramenta: Codex
+- Modelo: GPT-5
+- Objetivo: publicar a versão preparada do site.
+- Arquivos envolvidos: configuração do GitHub Pages, `js/config.js`, `README.md`, `supabase/schema.sql`, `supabase/seed.sql` e `tests/TESTES.md`.
+- Teste realizado: consulta anônima do ranking retornando 10 linhas; tentativa anônima de leitura do gabarito bloqueada com HTTP 401; advisors de segurança sem alertas.
+- Uso da resposta: GitHub Pages ativado na branch `main`, projeto Supabase criado em São Paulo e site conectado pela chave publicável.
+
+### Prompt completo
+
+> publica o site
+
