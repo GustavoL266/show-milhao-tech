@@ -38,7 +38,8 @@ body {
 }
 
 button,
-select {
+select,
+input {
   font: inherit;
 }
 
@@ -50,6 +51,7 @@ select {
 
 button:focus-visible,
 select:focus-visible,
+input:focus-visible,
 a:focus-visible {
   outline: 3px solid rgba(255, 200, 61, 0.85);
   outline-offset: 4px;
@@ -305,6 +307,26 @@ footer {
   transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
 }
 
+.play-link {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border: 1px solid rgba(255, 200, 61, 0.42);
+  border-radius: 15px;
+  color: var(--gold-soft);
+  background: rgba(255, 200, 61, 0.08);
+  text-decoration: none;
+  font-weight: 800;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.play-link:hover {
+  background: rgba(255, 200, 61, 0.14);
+  transform: translateY(-2px);
+}
+
 .refresh-button:hover:not(:disabled) {
   box-shadow: 0 17px 42px rgba(255, 200, 61, 0.28);
   transform: translateY(-2px);
@@ -342,6 +364,258 @@ footer {
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin-bottom: 74px;
+}
+
+.game-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1.2fr);
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+  margin-bottom: 74px;
+  padding: clamp(28px, 5vw, 58px);
+  border: 1px solid rgba(255, 200, 61, 0.2);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 0 0, rgba(255, 200, 61, 0.12), transparent 38%),
+    linear-gradient(145deg, rgba(12, 24, 59, 0.96), rgba(7, 15, 40, 0.96));
+  box-shadow: var(--shadow), inset 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.game-copy h2 {
+  margin: 10px 0 18px;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+}
+
+.game-copy h2 em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.game-copy > p:not(.section-kicker) {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.game-features {
+  display: grid;
+  gap: 10px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.game-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-soft);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.game-features li::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 5px rgba(69, 215, 160, 0.08);
+  content: "";
+}
+
+.game-card {
+  min-height: 420px;
+  padding: clamp(22px, 4vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(4, 10, 30, 0.66);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.nickname-field {
+  display: grid;
+  gap: 9px;
+  margin: 54px 0 18px;
+}
+
+.nickname-field span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nickname-field input {
+  width: 100%;
+  padding: 17px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink);
+  background: rgba(10, 20, 53, 0.92);
+  font-size: 1rem;
+}
+
+.nickname-field input::placeholder {
+  color: #65749a;
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 14px;
+  color: #302100;
+  background: linear-gradient(135deg, #ffe177, var(--gold));
+  box-shadow: 0 14px 36px rgba(255, 200, 61, 0.16);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.primary-button:disabled,
+.answer-button:disabled,
+.quit-button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.question-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.question-meta span:last-child {
+  color: var(--gold);
+}
+
+.question-prize {
+  margin: 18px 0 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.question-prize strong {
+  color: var(--gold-soft);
+}
+
+#questionText {
+  min-height: 58px;
+  margin: 0 0 20px;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  line-height: 1.35;
+}
+
+.answers {
+  display: grid;
+  gap: 10px;
+}
+
+.answer-button {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  color: var(--ink);
+  background: rgba(12, 24, 59, 0.78);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.answer-button:hover:not(:disabled) {
+  border-color: rgba(255, 200, 61, 0.48);
+  background: rgba(25, 40, 82, 0.9);
+  transform: translateX(3px);
+}
+
+.answer-button > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--gold);
+  background: rgba(255, 200, 61, 0.1);
+  font-weight: 800;
+}
+
+.answer-button strong {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.quit-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.quit-button:hover:not(:disabled) {
+  color: var(--gold-soft);
+}
+
+.game-feedback {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.game-result {
+  padding: 35px 0 10px;
+  text-align: center;
+}
+
+.result-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 22px;
+  place-items: center;
+  border-radius: 18px;
+  color: var(--gold);
+  background: rgba(255, 200, 61, 0.1);
+  font-size: 1.45rem;
+}
+
+.game-result h3 {
+  margin: 8px 0 10px;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.6rem;
+}
+
+.game-result > strong {
+  display: block;
+  color: var(--gold);
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+}
+
+.game-result > p:not(.section-kicker) {
+  margin: 8px 0 28px;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .stat-card {
@@ -729,6 +1003,10 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .game-section {
+    grid-template-columns: 1fr;
+  }
+
   .stat-card {
     min-height: 96px;
   }
@@ -800,6 +1078,10 @@ footer {
     flex-direction: column;
   }
 
+  .play-link {
+    min-height: 54px;
+  }
+
   .game-picker {
     min-width: 0;
   }
@@ -810,6 +1092,16 @@ footer {
 
   .stats {
     margin-bottom: 48px;
+  }
+
+  .game-section {
+    margin-bottom: 48px;
+    padding: 24px 16px;
+    border-radius: 22px;
+  }
+
+  .game-card {
+    min-height: 390px;
   }
 
   .ranking-section {

@@ -1,6 +1,6 @@
 # Show do Milhão Tech
 
-Projeto acadêmico com jogo de perguntas em Python, banco online no Supabase e ranking publicado no GitHub Pages. O site consulta o banco em tempo real, mostra os 10 melhores jogadores de cada jogo e aplica os critérios de desempate exigidos na atividade.
+Projeto acadêmico com jogo de perguntas em Python, banco online no Supabase e ranking publicado no GitHub Pages. O jogo pode ser disputado na própria página: o PyScript executa a interface em Python e o Supabase valida as respostas sem expor o gabarito.
 
 ## Identificação
 
@@ -13,28 +13,27 @@ Projeto acadêmico com jogo de perguntas em Python, banco online no Supabase e r
 
 ## O que está implementado
 
-- Jogo de terminal em Python com apelido obrigatório, validação das respostas e opção de desistência.
+- Jogo no navegador escrito em Python com apelido obrigatório, validação das respostas e opção de desistência.
+- Versão alternativa de terminal em Python para execução local.
 - Sorteio sem repetição de 3 perguntas fáceis, 3 médias e 3 difíceis.
 - Prêmios fictícios de R$ 1.000,00 a R$ 1.000.000,00, sem soma cumulativa.
 - Cronometragem com `time.perf_counter()` apenas durante a partida.
 - Salvamento idempotente com UUID; uma nova tentativa reutiliza o mesmo ID e evita duplicação.
 - Fila em memória para reenviar resultados que falharam durante a execução.
-- Ranking online, filtro por jogo, atualização manual, estados de carregamento, vazio e erro.
+- Ranking na mesma página do jogo, com atualização automática ao final da partida.
 - Melhor partida por apelido em cada jogo.
 - Desempate por maior prêmio, menor tempo, data mais antiga e ID da partida.
-- Banco com RLS: o site só lê jogos e ranking; não lê gabaritos e não altera partidas.
+- Banco com RLS: o site não lê gabaritos nem envia prêmio ou tempo; funções protegidas calculam e gravam o resultado.
 - 15 perguntas de Python com fontes para revisão.
 
 ## Estrutura
 
 ```text
 .
-├── index.html                # Página do ranking
+├── index.html                # Página do jogo e do ranking
 ├── css/styles.css            # Layout responsivo e acessível
-├── js/
-│   ├── app.js                # Consulta e renderização do ranking
-│   ├── config.js             # URL e chave publicável do Supabase
-│   └── config.example.js     # Modelo de configuração
+├── py/app.py                 # Interface e ranking em Python/PyScript
+├── pyscript.json             # Versão fixa do interpretador Python no navegador
 ├── game/
 │   ├── main.py               # Jogo Python
 │   ├── requirements.txt      # Dependências fixadas
@@ -67,14 +66,18 @@ Cada partida contém até nove perguntas. As três primeiras são fáceis, as tr
 1. Crie um projeto no Supabase.
 2. No SQL Editor, execute primeiro `supabase/schema.sql` e depois `supabase/seed.sql`.
 3. Em **Project Settings > API**, copie a URL do projeto e a chave **publicável**.
-4. Preencha `js/config.js` com esses dois valores.
-5. Para o jogo Python, copie `game/.env.example` para `game/.env` e preencha a URL e uma chave **secreta**.
+4. Para usar outro projeto, substitua esses valores no início de `py/app.py`.
+5. Para a versão de terminal, copie `game/.env.example` para `game/.env` e preencha a URL e uma chave **secreta**.
 
-A chave publicável pode aparecer no navegador: ela só alcança as linhas e operações permitidas pelas políticas RLS. A chave secreta ignora RLS e deve permanecer apenas no computador que executa o jogo. Nunca publique `game/.env`, nunca cole a chave secreta em `js/config.js` e não a inclua no ZIP da entrega.
+A chave publicável pode aparecer no navegador: ela só alcança as operações permitidas pelas políticas RLS e pelas funções públicas. A chave secreta ignora RLS e deve permanecer apenas no computador que executa a versão de terminal. Nunca publique `game/.env` nem inclua esse arquivo no ZIP da entrega.
 
 O arquivo `seed.sql` inclui partidas fictícias para validar o ranking. Antes da entrega final, a dupla pode removê-las no painel do Supabase e registrar partidas reais pelo jogo.
 
-## Executar o jogo
+## Jogar no site
+
+Acesse <https://gustavol266.github.io/show-milhao-tech/>, digite um apelido e clique em **Começar partida**. O navegador baixa o interpretador PyScript, por isso a primeira abertura pode levar alguns segundos. Depois de cada partida, o ranking é atualizado automaticamente.
+
+## Executar a versão de terminal
 
 Requisitos: Python 3.11 ou superior.
 
@@ -99,13 +102,13 @@ O menu permite iniciar partida, consultar ranking, reenviar resultados pendentes
 
 ## Visualizar o site localmente
 
-Como o site usa módulos JavaScript, sirva a pasta com um servidor HTTP:
+Como o PyScript carrega o arquivo Python por HTTP, sirva a pasta com o próprio Python:
 
 ```bash
 python -m http.server 8000
 ```
 
-Abra `http://localhost:8000`. Abrir `index.html` diretamente como arquivo pode bloquear a importação de `js/config.js` em alguns navegadores.
+Abra `http://localhost:8000`. Abrir `index.html` diretamente como arquivo pode bloquear o carregamento de `py/app.py`.
 
 ## Publicar no GitHub Pages
 
@@ -120,10 +123,13 @@ Abra `http://localhost:8000`. Abrir `index.html` diretamente como arquivo pode b
 - `perguntas` tem uma política pública explicitamente restritiva e seu gabarito não fica disponível ao site.
 - `partidas` permite `SELECT` público apenas para montar o ranking, mas não permite `INSERT`, `UPDATE` ou `DELETE` pelo navegador.
 - `ranking_publico` é uma view com `security_invoker = true`, portanto respeita o RLS das tabelas de origem.
-- O jogo usa a chave secreta pelo `.env` local para consultar perguntas e gravar resultados.
+- `iniciar_partida_web` sorteia nove questões sem devolver a resposta correta.
+- `responder_partida_web` valida cada alternativa e calcula acertos, prêmio e duração no servidor.
+- As sessões web ficam no schema `private`, sem permissão para usuários públicos.
+- A versão de terminal usa a chave secreta pelo `.env` local.
 - Nenhuma credencial administrativa deve ser commitada ou entregue.
 
-Para uma competição pública, o protótipo precisaria validar respostas e prêmios em um servidor e autenticar jogadores. O modelo atual segue o escopo didático da atividade.
+Para uma competição pública com identidade verificada, ainda seria necessário autenticar os jogadores. O modelo atual segue o escopo didático da atividade e impede a falsificação direta de prêmio e tempo pelo navegador.
 
 ## Testes e evidências
 

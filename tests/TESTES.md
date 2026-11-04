@@ -19,6 +19,10 @@ Preencha a coluna **Resultado observado** e inclua os nomes dos arquivos de capt
 | 13 | Jogo sem partidas | Site exibe mensagem de ranking vazio | Pendente de confirmação online | Pendente |
 | 14 | Falha na consulta do site | Site exibe mensagem de erro, sem dados inventados | Pendente de confirmação online | Pendente |
 | 15 | Permissões públicas | Site não lê `perguntas` e não insere/altera `partidas` | API pública retornou 401 para `perguntas`; ranking retornou 10 linhas | Aprovado |
+| 16 | Iniciar pelo site | Exibir a primeira questão sem revelar o campo `correta` | Chamada como `anon` retornou 9 alternativas ordenadas e `expos_gabarito = false` | Aprovado |
+| 17 | Responder pelo site | Função do banco valida a alternativa e avança ou encerra | Resposta correta avançou da pergunta 1 para a 2 e fixou o prêmio em R$ 1.000,00 | Aprovado |
+| 18 | Finalizar pelo site | Resultado é salvo e o ranking atualiza na mesma página | Pendente de nova validação online | Pendente |
+| 19 | Alterar prêmio pelo navegador | Não há parâmetro público para enviar prêmio, tempo ou acertos | Conferido na assinatura das funções SQL | Aprovado |
 
 ## Evidências obrigatórias
 
@@ -32,8 +36,10 @@ Preencha a coluna **Resultado observado** e inclua os nomes dos arquivos de capt
 Os seguintes itens devem ser reexecutados sempre que houver alteração:
 
 - Compilação de `game/main.py` com `python -m py_compile`.
-- Verificação de sintaxe dos módulos JavaScript.
-- Servidor local respondendo `index.html`, CSS e JavaScript.
+- Compilação de `py/app.py` com um stub das importações do PyScript.
+- Servidor local respondendo `index.html`, CSS, configuração e Python.
+- Chamada pública de `iniciar_partida_web` sem retorno do gabarito.
+- Chamada pública de `responder_partida_web` e gravação do resultado calculado no servidor.
 - Execução de `supabase/schema.sql` e `supabase/seed.sql` sem erro.
 - Consulta real da view `ranking_publico`.
 - Advisors de segurança e desempenho do Supabase sem alertas críticos relacionados ao projeto.
