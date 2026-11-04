@@ -72,7 +72,14 @@ create policy "Ranking pode ler partidas"
   to anon, authenticated
   using (true);
 
--- Não há política pública para perguntas e não há política de escrita para partidas.
+drop policy if exists "Gabarito bloqueado para o publico" on public.perguntas;
+create policy "Gabarito bloqueado para o publico"
+  on public.perguntas
+  for select
+  to anon, authenticated
+  using (false);
+
+-- Não há política de escrita para partidas.
 -- O jogo Python usa uma chave secreta somente no ambiente local, nunca no GitHub.
 revoke all on public.perguntas from anon, authenticated;
 revoke insert, update, delete on public.jogos from anon, authenticated;
