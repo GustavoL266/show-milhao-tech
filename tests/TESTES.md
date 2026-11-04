@@ -18,7 +18,7 @@ Preencha a coluna **Resultado observado** e inclua os nomes dos arquivos de capt
 | 12 | Atualizar o site após uma partida | A nova partida aparece sem editar o HTML | Site conectado ao projeto Supabase ativo | Aprovado |
 | 13 | Jogo sem partidas | Site exibe mensagem de ranking vazio | Pendente de confirmação online | Pendente |
 | 14 | Falha na consulta do site | Site exibe mensagem de erro, sem dados inventados | Pendente de confirmação online | Pendente |
-| 15 | Permissões públicas | Site não lê `perguntas` e não insere/altera `partidas` | RLS ativo; acesso público limitado a jogos, partidas em leitura e view do ranking | Aprovado |
+| 15 | Permissões públicas | Site não lê `perguntas` e não insere/altera `partidas` | API pública retornou 401 para `perguntas`; ranking retornou 10 linhas | Aprovado |
 
 ## Evidências obrigatórias
 
