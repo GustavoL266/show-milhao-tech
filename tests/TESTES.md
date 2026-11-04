@@ -11,14 +11,14 @@ Preencha a coluna **Resultado observado** e inclua os nomes dos arquivos de capt
 | 5 | Informar apelido vazio | Solicitar novamente sem iniciar o cronômetro | Pendente de teste manual | Pendente |
 | 6 | Informar alternativa inválida | Solicitar A, B, C, D ou S novamente | Pendente de teste manual | Pendente |
 | 7 | Verificar perguntas sorteadas | Ordem 3 fáceis, 3 médias, 3 difíceis; sem repetição | Pendente de teste manual | Pendente |
-| 8 | Duas partidas com mesmo prêmio | Menor `tempo_segundos` aparece primeiro | Pendente de confirmação online | Pendente |
-| 9 | Duas partidas do mesmo apelido | Ranking exibe somente a melhor partida daquele apelido | Pendente de confirmação online | Pendente |
+| 8 | Duas partidas com mesmo prêmio | Menor `tempo_segundos` aparece primeiro | Validado com partidas de demonstração de R$ 500.000,00 | Aprovado |
+| 9 | Duas partidas do mesmo apelido | Ranking exibe somente a melhor partida daquele apelido | A view retornou somente a melhor partida de `Ada_L` | Aprovado |
 | 10 | Rankings de jogos diferentes | O filtro não mistura resultados | Pendente de confirmação online | Pendente |
 | 11 | Interromper a conexão ao salvar | Não confirmar salvamento; permitir reenvio com o mesmo UUID | Pendente de teste manual | Pendente |
-| 12 | Atualizar o site após uma partida | A nova partida aparece sem editar o HTML | Pendente de confirmação online | Pendente |
+| 12 | Atualizar o site após uma partida | A nova partida aparece sem editar o HTML | Site conectado ao projeto Supabase ativo | Aprovado |
 | 13 | Jogo sem partidas | Site exibe mensagem de ranking vazio | Pendente de confirmação online | Pendente |
 | 14 | Falha na consulta do site | Site exibe mensagem de erro, sem dados inventados | Pendente de confirmação online | Pendente |
-| 15 | Permissões públicas | Site não lê `perguntas` e não insere/altera `partidas` | Pendente de confirmação online | Pendente |
+| 15 | Permissões públicas | Site não lê `perguntas` e não insere/altera `partidas` | RLS ativo; acesso público limitado a jogos, partidas em leitura e view do ranking | Aprovado |
 
 ## Evidências obrigatórias
 
