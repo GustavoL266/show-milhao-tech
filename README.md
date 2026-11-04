@@ -8,8 +8,8 @@ Projeto acadêmico com jogo de perguntas em Python, banco online no Supabase e r
 - Integrante 2: **preencher nome completo**
 - Turma: **preencher turma**
 - Nome do jogo: **Show do Milhão Tech**
-- Repositório GitHub: **será preenchido após a publicação**
-- Site no GitHub Pages: **será preenchido após a publicação**
+- Repositório GitHub: <https://github.com/GustavoL266/show-milhao-tech>
+- Site no GitHub Pages: <https://gustavol266.github.io/show-milhao-tech/>
 
 ## O que está implementado
 
