@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ranking online do Show do Milhão Tech, atualizado diretamente pelo Supabase."
+    />
+    <meta name="theme-color" content="#07112d" />
+    <title>Show do Milhão Tech | Ranking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script type="module" src="./js/app.js"></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="Show do Milhão Tech, página inicial">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M9 31 5 16l11 6 8-15 8 15 11-6-4 15H9Z" />
+            <path d="M11 36h26" />
+          </svg>
+        </span>
+        <span>
+          <strong>Show do Milhão</strong>
+          <small>Tech edition</small>
+        </span>
+      </a>
+
+      <div class="connection" id="connectionStatus" role="status" aria-live="polite">
+        <span class="connection-dot"></span>
+        <span>Conectando ao ranking</span>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="eyebrow"><span></span> Ranking oficial</div>
+        <h1 id="heroTitle">Quem chegou mais perto do <em>milhão?</em></h1>
+        <p>
+          Cada acerto vale uma nova posição. Se o prêmio empatar, vence quem respondeu em menos
+          tempo — e só a melhor partida de cada apelido entra no placar.
+        </p>
+
+        <div class="hero-actions">
+          <label class="game-picker" for="gameSelect">
+            <span>Jogo</span>
+            <select id="gameSelect" aria-describedby="gameHelp" disabled>
+              <option>Carregando jogos...</option>
+            </select>
+          </label>
+          <span class="sr-only" id="gameHelp">Escolha um jogo para visualizar seu ranking.</span>
+
+          <button class="refresh-button" id="refreshButton" type="button" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" />
+            </svg>
+            Atualizar ranking
+          </button>
+        </div>
+
+        <p class="last-update" id="lastUpdate">Aguardando a primeira atualização</p>
+      </section>
+
+      <section class="stats" aria-label="Resumo do ranking">
+        <article class="stat-card stat-highlight">
+          <span class="stat-icon" aria-hidden="true">◆</span>
+          <div>
+            <p>Maior prêmio</p>
+            <strong id="topPrize">—</strong>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">◷</span>
+          <div>
+            <p>Melhor tempo</p>
+            <strong id="bestTime">—</strong>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">♙</span>
+          <div>
+            <p>Competidores</p>
+            <strong id="playerCount">—</strong>
+          </div>
+        </article>
+      </section>
+
+      <section class="ranking-section" aria-labelledby="rankingTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Top 10</p>
+            <h2 id="rankingTitle">Pódio da rodada</h2>
+          </div>
+          <p>Prêmios fictícios, sem valor financeiro real.</p>
+        </div>
+
+        <div id="feedback" class="feedback loading-state" role="status" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <div>
+            <strong>Buscando os melhores jogadores</strong>
+            <p>Os dados vêm diretamente do Supabase.</p>
+          </div>
+        </div>
+
+        <div id="rankingContent" class="ranking-content" hidden>
+          <div class="podium" id="podium" aria-label="Três primeiros colocados"></div>
+
+          <div class="ranking-table-wrap">
+            <table class="ranking-table">
+              <caption class="sr-only">
+                Classificação dos dez melhores jogadores do jogo selecionado
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Posição</th>
+                  <th scope="col">Jogador</th>
+                  <th scope="col">Prêmio</th>
+                  <th scope="col">Tempo</th>
+                  <th scope="col">Data</th>
+                </tr>
+              </thead>
+              <tbody id="rankingRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="rules" aria-labelledby="rulesTitle">
+        <div>
+          <p class="section-kicker">Como funciona</p>
+          <h2 id="rulesTitle">O caminho até R$ 1 milhão</h2>
+        </div>
+        <ol class="rules-grid">
+          <li>
+            <span>01</span>
+            <div>
+              <strong>Três perguntas fáceis</strong>
+              <p>O jogo começa com prêmios de R$ 1 mil a R$ 10 mil.</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <strong>Três perguntas médias</strong>
+              <p>A disputa avança de R$ 25 mil até R$ 100 mil.</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <strong>Três perguntas difíceis</strong>
+              <p>Os últimos acertos valem R$ 200 mil, R$ 500 mil e R$ 1 milhão.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <div class="brand footer-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <path d="M9 31 5 16l11 6 8-15 8 15 11-6-4 15H9Z" />
+            <path d="M11 36h26" />
+          </svg>
+        </span>
+        <span><strong>Show do Milhão Tech</strong><small>Projeto acadêmico</small></span>
+      </div>
+      <p>Ranking online com GitHub Pages + Supabase</p>
+    </footer>
+  </body>
+</html>
+
