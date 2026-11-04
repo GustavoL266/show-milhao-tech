@@ -33,7 +33,7 @@ Projeto acadêmico com jogo de perguntas em Python, banco online no Supabase e r
 ├── index.html                # Página do jogo e do ranking
 ├── css/styles.css            # Layout responsivo e acessível
 ├── py/app.py                 # Interface e ranking em Python/PyScript
-├── pyscript.json             # Versão fixa do interpretador Python no navegador
+├── pyscript.json             # Configuração dos pacotes Python no navegador
 ├── game/
 │   ├── main.py               # Jogo Python
 │   ├── requirements.txt      # Dependências fixadas
