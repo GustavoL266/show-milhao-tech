@@ -117,7 +117,7 @@ Abra `http://localhost:8000`. Abrir `index.html` diretamente como arquivo pode b
 
 ## Segurança e permissões
 
-- `perguntas` não tem política pública e seu gabarito não fica disponível ao site.
+- `perguntas` tem uma política pública explicitamente restritiva e seu gabarito não fica disponível ao site.
 - `partidas` permite `SELECT` público apenas para montar o ranking, mas não permite `INSERT`, `UPDATE` ou `DELETE` pelo navegador.
 - `ranking_publico` é uma view com `security_invoker = true`, portanto respeita o RLS das tabelas de origem.
 - O jogo usa a chave secreta pelo `.env` local para consultar perguntas e gravar resultados.
